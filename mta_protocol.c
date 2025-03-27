@@ -1,3 +1,28 @@
+/*
+    High-Level Code Flow and Purpose
+    This program implements a Secure Multiplicative-to-Additive (MtA) protocol using the secp256k1 elliptic curve parameters (commonly used in Bitcoin). The MtA protocol is a cryptographic technique that allows two parties to convert multiplicative shares (e.g., a * b) into additive shares (e.g., c + d) such that a * b ≡ c + d (mod n), where n is the curve order. This is a building block in secure multi-party computation (MPC), where parties compute a result together without revealing their private inputs.
+
+    The program:
+
+    Defines utility functions for XOR encryption, SHA-256 hashing, and printing large numbers.
+    Implements the MtA protocol with a simulated Correlated Oblivious Transfer (OT) using XOR encryption and SHA-256.
+    Runs test cases to verify the protocol works by ensuring c + d mod n equals a * b mod n.
+*/
+
+/*
+    * Secure Multiplicative-to-Additive (MtA) Protocol with Simulated Correlated OT
+    * Purpose: Converts multiplicative shares (a, b) into additive shares (c, d)
+    *          such that a * b ≡ c + d (mod curve_order).
+    * General Flow:
+    * 1. Generate a random value u for Party 1 using SHA-256 hash of a and b.
+    * 2. Compute ab = a * b mod curve_order.
+    * 3. Compute v = ab - u mod curve_order for Party 2.
+    * 4. Simulate Correlated OT: Encrypt u and v with XOR using a SHA-256-derived key.
+    * 5. Decrypt the encrypted values to assign c = u and d = v.
+    * 6. Clean up allocated memory.
+    * Note: Uses secp256k1 curve order as modulus; assumes 256-bit inputs.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
