@@ -1,0 +1,18 @@
+- How to compile code -> 
+gcc -o mta_protocol mta_protocol.c -I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib -lcrypto
+
+- 
+
+- How to Run Smoothly
+
+1.) Install / update SSL
+    brew update
+    brew install openssl
+
+2.) Find the correct OpenSSL paths:
+    brew --prefix openssl
+
+    This will show you the installation path (typically /usr/local/opt/openssl@3 or similar)
+
+3.) Compile with the exact path from brew --prefix openssl:
+    gcc -o mta_protocol mta_protocol.c -I$(brew --prefix openssl)/include -L$(brew --prefix openssl)/lib -lcrypto
